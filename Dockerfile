@@ -11,4 +11,4 @@ RUN apk update \
  && echo -e "call plug#begin()\nPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }\ncall plug#end()" > ~/.vimrc \
  && apk del --purge curl
 
-ENTRYPOINT ["/usr/local/bin/vim"]
+ENTRYPOINT ["/usr/bin/vim"]
