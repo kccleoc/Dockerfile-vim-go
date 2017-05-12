@@ -12,3 +12,5 @@ RUN apk update \
  && apk del --purge curl
 
 ENTRYPOINT ["/usr/bin/vim"]
+CMD ["/home/TextAtHostPWD"]
+#Useful when docker run -it --rm --volumes-from cv-go-codebase -v $(pwd):/home kccleoc/imagename fileeditedbyvim
