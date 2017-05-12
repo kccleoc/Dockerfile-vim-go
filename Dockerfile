@@ -1,43 +1,16 @@
-FROM alpine:3.4
+FROM golang:alpine
 
 #Source Repository thinca/dockerfile-vim
 
-RUN apk add --no-cache \
+RUN apk update \
+ && apk add --no-cache \
         git \
-        gcc \
-        libc-dev \
-        make \
-        gettext \
-        ncurses-dev \
-        acl-dev \
-        libxmu-dev \
-        gtk+2.0-dev \
-        libxpm-dev \
-        perl-dev \
-        python-dev \
-        python3-dev \
-        ruby \
-        ruby-dev \
-        lua5.3-dev \
-        luajit-dev \
- && git clone --quiet --depth 1 https://github.com/vim/vim.git /usr/src/vim \
- && cd /usr/src/vim \
- && ./configure --with-features=huge --enable-gui=gtk2 --enable-perlinterp --enable-pythoninterp --enable-python3interp --enable-rubyinterp --enable-luainterp --with-luajit --enable-fail-if-missing \
- && make \
- && make install \
- && cd /root \
- && rm -fr /usr/src/vim \
- && apk del --purge \
-        git \
-        gcc \
-        libc-dev \
-        make \
-        gettext \
-        ncurses-dev \
-        libxmu-dev \
-        ruby
-
-
-WORKDIR /root
+        curl \
+        vim \
+ #See https://github.com/fatih/vim-go-tutorial#hello-world
+ && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
+ && git clone https://github.com/fatih/vim-go.git ~/.vim/plugged/vim-go
+ && echo -e "call plug#begin()\nPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }\ncall plug#end()" > ~/.vimrc
+ && apk del --purge curl
 
 CMD ["/usr/local/bin/vim"]
