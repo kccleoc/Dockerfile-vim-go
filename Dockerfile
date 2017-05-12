@@ -1,7 +1,5 @@
 FROM golang:alpine
 
-#Source Repository thinca/dockerfile-vim
-
 RUN apk update \
  && apk add --no-cache \
         git \
@@ -13,4 +11,4 @@ RUN apk update \
  && echo -e "call plug#begin()\nPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }\ncall plug#end()" > ~/.vimrc \
  && apk del --purge curl
 
-CMD ["/usr/bin/vim"]
+ENTRYPOINT ["/usr/local/bin/vim"]
