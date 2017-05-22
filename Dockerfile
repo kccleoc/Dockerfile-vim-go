@@ -11,6 +11,5 @@ RUN apk update \
  && echo -e "call plug#begin()\nPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }\ncall plug#end()" > ~/.vimrc \
  && apk del --purge curl
 
-ENTRYPOINT ["/usr/bin/vim"]
-CMD ["/home/TextAtHostPWD"]
+CMD ["/bin/sh"]
 #Useful when docker run -it --rm --volumes-from cv-go-codebase -v $(pwd):/home kccleoc/imagename fileeditedbyvim
